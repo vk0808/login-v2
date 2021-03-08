@@ -6,11 +6,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState({show: false, msg:""});
+  const [error, setError] = useState({ show: false, msg: "" });
 
-  const showError = (show= false, msg = '' ) => {
-    setError({ show, msg })
-  }
+  const showError = (show = false, msg = "") => {
+    setError({ show, msg });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +28,17 @@ const Login = () => {
       setIsLoggedIn(false);
     }
     setIsLoading(false);
+  };
+  
+  const handleLogin = () => {
     setUsername("");
     setPassword("");
-  };
+    setIsLoggedIn(false);
+  }
+
   useEffect(() => {
-    const timeout = setTimeout(()=>{
-      showError()
+    const timeout = setTimeout(() => {
+      showError();
     }, 2000);
     return () => clearTimeout(timeout);
   }, [error]);
@@ -43,7 +48,7 @@ const Login = () => {
         {isLoggedIn ? (
           <>
             <h1 className="greeting">welcome, {username}</h1>
-            <button className="submit" onClick={() => setIsLoggedIn(false)}>
+            <button className="submit" onClick={handleLogin}>
               logout
             </button>
           </>
