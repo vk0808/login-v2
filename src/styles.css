@@ -33,3 +33,10 @@ input {
   padding: 10px;
   text-transform: capitalize;
 }
+.error {
+  color: red;
+  font-weight: bold;
+}
+.greeting {
+  text-transform: capitalize;
+}
