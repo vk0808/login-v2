@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { login } from "./utils";
+import { data } from "./data";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,29 +13,46 @@ const Login = () => {
     setError({ show, msg });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setIsLoading(true);
     showError();
 
-    try {
-      await login({ username, password });
+    // try {
+    //   await login({username, password, data})
 
-      setIsLoggedIn(true);
-      showError();
-    } catch (error) {
-      showError(true, "incorrect password or username!");
-      setIsLoggedIn(false);
-    }
+    //   setIsLoggedIn(true);
+    //   showError();
+    // } catch (error) {
+    //   showError(true, "incorrect password or username!");
+    //   setIsLoggedIn(false);
+    //   setIsLoading(false);
+    // }
+
+    for (var user in data) {
+      try {
+        if (username === data[user].name && password === data[user].pass) {
+          console.log("true", username, password, data[user].name, data[user].pass);
+          setIsLoggedIn(true);
+          showError();
+        } 
+      } catch (error) {
+        showError(true, "incorrect password or username!");
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        console.log("false", username, password, data[user].name, data[user].pass);
+      }
+    };
+
     setIsLoading(false);
   };
-  
+
   const handleLogin = () => {
     setUsername("");
     setPassword("");
     setIsLoggedIn(false);
-  }
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {

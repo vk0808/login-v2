@@ -1,11 +1,14 @@
-export async function login({ username, password }) {
+export async function login({ username, password, data }) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (username === 'alex' && password === '123') {
-        resolve();
-      } else {
-        reject();
-      }
-    }, 1000);
+    data.forEach((item) => {
+      setTimeout(() => {
+        console.log(username, password, item.name, item.pass);
+        if (username === item.name && password === item.pass) {
+          return resolve();
+        } else {
+          return reject();
+        }
+      }, 500);
+    });
   });
 }
